@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create new photo";
+}
+
+@model PhotoFormModel
+
+<div class="p-5">
+    <div class="container bg-light p-3 rounded-3">
+        <h1 class="ms-text-orange text-center">Crea la tua nuova foto!</h1>
+        <p class="fs-6 text-center">I campi contrassegnati da * sono obbligatori.</p>
+        <form asp-controller="Photo" asp-action="Create" enctype="multipart/form-data" method="post">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label for="title" class="form-label">Titolo *</label>
+                <input type="text" class="form-control" id="title" asp-for="newPhoto.Title">
+                <span class="text-danger" asp-validation-for="newPhoto.Title"></span>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Descrizione *</label>
+                <input type="text" class="form-control" id="description" asp-for="newPhoto.Description">
+                <span class="text-danger" asp-validation-for="newPhoto.Description"></span>
+            </div>
+            <div class="mb-3">
+                <label for="imgUrl" class="form-label">URL immagine</label>
+                <input type="text" class="form-control" id="imgUrl" asp-for="newPhoto.ImageSrc">
+                <span class="text-danger" asp-validation-for="newPhoto.ImageSrc"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImageFormFile">File immagine</label>
+                <input type="file" asp-for="ImageFormFile" />
+                <span asp-validation-for="ImageFormFile" class="text-error"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="newPhoto.Visibility" class="form-label">Visibilità</label>
+                <input type="checkbox" id="visibility" value="true" asp-for="newPhoto.Visibility"/>
+                <span class="text-danger" asp-validation-for="newPhoto.Visibility"></span>
+            </div>
+            <div class="mb-3">
+                <label for="categories" class="form-label">Tieni premuto ctrl e premi sulle categorie per effettuare una selezione multipla.</label>
+                <select asp-for="SelectedCategories" class="d-block"
+                        multiple="multiple"
+                        size="10"
+                        class="form-control mb-2 me-sm-2 ms-sm-3 leftList"
+                        asp-items="@Model.AvailableCategories">
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Crea</button>
+        </form>
+    </div>
+</div>
