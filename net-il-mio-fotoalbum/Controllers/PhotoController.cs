@@ -7,23 +7,36 @@ namespace net_il_mio_fotoalbum.Controllers
 {
     public class PhotoController : Controller
     {
-        private PhotoContext _PhotoDatabase;
+        private PhotoContext _photoDatabase;
 
         public PhotoController(PhotoContext photoDatabase)
         {
-            _PhotoDatabase = photoDatabase;
+            _photoDatabase = photoDatabase;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            List<Photo> photos = _PhotoDatabase.Photos.Include(p => p.Categories).ToList();
+            List<Photo> photos = _photoDatabase.Photos.Include(p => p.Categories).ToList();
             return View("Index", photos);
         }
 
         [HttpGet]
-        public IActionResult Details()
+        public IActionResult Details(long id)
         {
-            return View();
+
+
+            Photo? detailedPhoto = _photoDatabase.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
+
+            if (detailedPhoto == null)
+            {
+                return NotFound($"Non è stata trovata una foto con id={id}.");
+            }
+            else
+            {
+                return View("Details", detailedPhoto);
+            }
+
+
         }
     }
 }

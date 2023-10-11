@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Admin";
+}
+
+@model Photo
+
+<div class="p-5">
+    <div class="bg-light p-3 rounded-3">
+        <img class="ms-detail-image m-auto d-block rounded-3" src="@Model.ImageSrc" alt="@Model.Title">
+        <ul class="list-unstyled">
+            <li>
+                <h1 class="text-center mb-3">@Model.Title</h1>
+            </li>
+            <li>
+                <p>
+                    <strong>Categorie:</strong>@if (Model.Categories != null && Model.Categories.Count > 0)
+                    {
+                        string categoriesString = "";
+                        @foreach (Category category in Model.Categories)
+                        {
+                            @if (!(category == Model.Categories.First()))
+                            {
+                                categoriesString += $", {@category.Name.ToLower()}";
+                            }
+                            else
+                            {
+                                categoriesString += $"{@category.Name}";
+                            }
+                        }
+                        <span>@categoriesString</span>
+                    }
+                    else
+                    {
+                        <span>Nessuna categoria associata.</span>
+                    }
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Informazioni: </strong>@Model.Description
+                </p>
+            </li>
+            <li>
+                <b>Visibilità: @(Model.Visibility ? "Visibile" : "Nascosta")</b>
+            </li>
+        </ul>
+        <div class="text-center">
+            <a class="btn btn-warning" href="@Url.Action("Index", "Photo")">Lista foto</a>
+        </div>
+    </div>
+</div>
