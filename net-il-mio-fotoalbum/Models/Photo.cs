@@ -16,7 +16,7 @@ namespace net_il_mio_fotoalbum.Models
         public byte[]? ImageFile { get; set; }
 
         public string ImageSrc =>
-            ImageFile is null ? (ImageUrl is null ? "" : ImageUrl) : $"data:image/png;base64,{Convert.ToBase64String(ImageFile)}";
+            ImageFile is null ? ImageUrl is null ? "" : ImageUrl : $"data:image/png;base64,{Convert.ToBase64String(ImageFile)}";
         [Required(ErrorMessage = "Impostare la visibilità dell'immagine è obbligatorio")]
         public bool Visibility { get; set; }
 

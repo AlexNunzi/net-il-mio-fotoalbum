@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Lista delle foto";
+}
+
+@model List<Photo>
+
+<div class="p-5">
+    <div class="bg-light p-3 rounded-3">
+        <h1 class="text-center mb-3">Lista delle foto</h1>
+@*         @if (User.IsInRole("ADMIN"))
+        { *@
+            <div class="text-center">
+                <a class="btn btn-success my-3" href="@Url.Action("Create", "Photo")">Aggiungi foto</a>
+            </div>
+        @* } *@
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Anteprima</th>
+                    <th scope="col">Titolo</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Visibilità</th>
+                    <th scope="col">Categorie</th>
+                    <th scope="col">Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    @foreach (Photo photo in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img class="ms-table-preview" src="@photo.ImageSrc" alt="@photo.Title">
+                            </td>
+                            <td class="text-truncate">@photo.Title</td>
+                            <td class="text-truncate">@photo.Description</td>
+                            <td class="text-truncate">@(photo.Visibility ? "Visibile" : "Nascosta")</td>
+                                @if(@photo.Categories != null && photo.Categories.Count > 0){
+                                    string categoriesString = "";
+                                    @foreach(Category category in photo.Categories)
+                                        {
+                                            if(!(category == photo.Categories.First()))
+                                            {
+                                                categoriesString += $", {category.Name.ToLower()}";
+                                            } else
+                                            {
+                                                categoriesString += category.Name;
+                                            }
+                                        }
+                                    <td class="text-truncate">@categoriesString</td>
+                                } else {
+                                    <td>Nessuna categoria associata.</td>
+                                }
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="@Url.Action("Details", "Photo", new { id = photo.Id})">
+                                    @* Dettaglio *@
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                                @* @if (User.IsInRole("ADMIN"))
+                                { *@
+                                    <a class="btn btn-sm btn-warning" href="@Url.Action("Update", "Photo", new { id = photo.Id})">
+                                        @* Modifica *@
+                                        <i class="fa-solid fa-pen text-white"></i>
+                                    </a>
+                                    <form class="d-inline-block" id="ms-delete-@photo.Id" asp-controller="Photo" asp-action="Delete" asp-route-id="@photo.Id" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button data-bs-toggle="modal" data-bs-target="#ms-modal-delete" data-form-id="@photo.Id" data-form-name="@photo.Title" type="submit" class="btn btn-sm btn-danger ms-btn-delete">
+                                            @* Elimina *@
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                @* } *@
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="text-center text-danger" colspan="5">Il menù è ancora vuoto.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
