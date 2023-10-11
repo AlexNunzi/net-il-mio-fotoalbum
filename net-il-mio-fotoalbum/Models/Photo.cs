@@ -20,6 +20,9 @@ namespace net_il_mio_fotoalbum.Models
         [Required(ErrorMessage = "Impostare la visibilità dell'immagine è obbligatorio")]
         public bool Visibility { get; set; }
 
+        // Relazione con Category
+        public List<Category>? Categories { get; set; }
+
         public Photo() { }
     }
 }
