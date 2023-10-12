@@ -31,3 +31,67 @@ footere {
     max-height: 30rem;
     object-fit: cover;
 }
+
+.ms-bg-cyan {
+    background-color: rgba(0, 125, 125, 1);
+}
+
+#ms-logo {
+    height: 5rem;
+}
+
+/* Landing page */
+
+#ms-jumbo {
+    height: 30rem;
+}
+
+.ms-w-80 {
+    width: 80%;
+}
+
+.ms-rounded-btn {
+    border-radius: 25rem;
+}
+
+.ms-about-us {
+    height: 25rem;
+    width: 70%;
+    margin: auto;
+}
+
+.ms-w-40 {
+    width: 40%;
+}
+
+.ms-index-2 {
+    z-index: 2;
+}
+
+.ms-border-cyan {
+    border-color: rgba(0, 125, 125, 1);
+}
+
+.ms-graphic-span {
+    z-index: 1;
+    width: 50%;
+    position: absolute;
+}
+
+.ms-graphic-span-right {
+    height: 50%;
+    top: 20%;
+    right: 0;
+}
+
+.ms-graphic-span-left {
+    height: 35%;
+    bottom: 20%;
+    left: 0;
+}
+
+.ms-home-img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

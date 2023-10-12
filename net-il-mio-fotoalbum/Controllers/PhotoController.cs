@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using net_il_mio_fotoalbum.Database;
@@ -14,6 +15,7 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             _photoDatabase = photoDatabase;
         }
+        [Authorize(Roles = "ADMIN, USER")]
         [HttpGet]
         public IActionResult Index(string? filteringString)
         {
@@ -31,6 +33,7 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("Index", filteredPhotos);
         }
 
+        [Authorize(Roles = "ADMIN, USER")]
         [HttpGet]
         public IActionResult Details(long id)
         {
@@ -46,6 +49,7 @@ namespace net_il_mio_fotoalbum.Controllers
             }
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -71,6 +75,7 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("Create", formModel);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhotoFormModel formData)
@@ -121,6 +126,7 @@ namespace net_il_mio_fotoalbum.Controllers
             return RedirectToAction("Index", "Photo");
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Update(long id)
         {
@@ -153,6 +159,7 @@ namespace net_il_mio_fotoalbum.Controllers
             return NotFound($"Non è stato possibile trovare una foto con id={id}");
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(long id, PhotoFormModel formData)
@@ -227,6 +234,7 @@ namespace net_il_mio_fotoalbum.Controllers
             return RedirectToAction("Details", "Photo", new { id });
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public IActionResult Delete(long id)
         {

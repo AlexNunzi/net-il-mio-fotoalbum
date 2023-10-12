@@ -13,6 +13,7 @@ namespace net_il_mio_fotoalbum
             builder.Services.AddDbContext<PhotoContext>();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<PhotoContext>();
 
             // Add services to the container.

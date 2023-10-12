@@ -8,12 +8,12 @@
 <div class="p-5">
     <div class="bg-light p-3 rounded-3">
         <h1 class="text-center mb-3">Lista delle categorie</h1>
-        @*         @if (User.IsInRole("ADMIN"))
-        { *@
-        <div class="text-center">
-            <a class="btn btn-success my-3" href="@Url.Action("Create", "Category")">Aggiungi categoria</a>
-        </div>
-        @* } *@
+        @if (User.IsInRole("ADMIN"))
+        { 
+            <div class="text-center">
+                <a class="btn btn-success my-3" href="@Url.Action("Create", "Category")">Aggiungi categoria</a>
+            </div>
+        } 
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -36,8 +36,8 @@
                                     @* Dettaglio *@
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
-                                @* @if (User.IsInRole("ADMIN"))
-                        { *@
+                            @if (User.IsInRole("ADMIN"))
+                            { 
                                 <a class="btn btn-sm btn-warning" href="@Url.Action("Update", "Category", new { id = category.Id})">
                                     @* Modifica *@
                                     <i class="fa-solid fa-pen text-white"></i>
@@ -49,7 +49,7 @@
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </form>
-                                @* } *@
+                            } 
                             </td>
                         </tr>
                     }

@@ -8,12 +8,12 @@
 <div class="p-5">
     <div class="bg-light p-3 rounded-3">
         <h1 class="text-center mb-3">Lista delle foto</h1>
-@*         @if (User.IsInRole("ADMIN"))
-        { *@
+         @if (User.IsInRole("ADMIN"))
+         { 
             <div class="text-center">
                 <a class="btn btn-success my-3" href="@Url.Action("Create", "Photo")">Aggiungi foto</a>
             </div>
-        @* } *@
+         } 
         <form id="ms-filter-photo-name-form" asp-controller="Photo" asp-action="Index" method="get">
             <div class="mb-3">
                 <label for="filteringString" class="form-label">Filtra per nome</label>
@@ -69,8 +69,8 @@
                                     @* Dettaglio *@
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
-                                @* @if (User.IsInRole("ADMIN"))
-                                { *@
+                                 @if (User.IsInRole("ADMIN"))
+                                 { 
                                     <a class="btn btn-sm btn-warning" href="@Url.Action("Update", "Photo", new { id = photo.Id})">
                                         @* Modifica *@
                                         <i class="fa-solid fa-pen text-white"></i>
@@ -82,7 +82,7 @@
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </form>
-                                @* } *@
+                                 } 
                             </td>
                         </tr>
                     }

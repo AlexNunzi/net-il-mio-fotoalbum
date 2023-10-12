@@ -1,9 +1,9 @@
 ﻿<header>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-light h-100">
         <div class="container-fluid d-flex justify-content-between">
             <div class="d-flex">
-                <a class="navbar-brand" href="#">
-                    Logo
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                    <img id="ms-logo" src="~/img/logo.png" alt="Logo Photo" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -11,10 +11,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Home")">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Album delle foto</a>
+                            <a class="nav-link" href="@Url.Action("PhotoAlbum", "Home")">Album delle foto</a>
                         </li>
                     </ul>
                 </div>
