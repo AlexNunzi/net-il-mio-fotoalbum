@@ -7,7 +7,7 @@
 
 <div class="p-5">
     <div class="bg-light p-3 rounded-3">
-        <img class="ms-detail-image m-auto d-block rounded-3" src="@Model.ImageSrc" alt="@Model.Title">
+        <img class="ms-detail-image m-auto d-block rounded-3" src="@(Model.ImageSrc != "" ? Model.ImageSrc : "/img/placeholder.png")" alt="@Model.Title">
         <ul class="list-unstyled">
             <li>
                 <h1 class="text-center mb-3">@Model.Title</h1>

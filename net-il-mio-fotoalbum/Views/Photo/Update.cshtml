@@ -9,8 +9,9 @@
     <div class="container bg-light p-3 rounded-3">
         <h1 class="ms-text-orange text-center">Crea la tua nuova foto!</h1>
         <p class="fs-6 text-center">I campi contrassegnati da * sono obbligatori.</p>
-        <form asp-controller="Photo" asp-action="Create" enctype="multipart/form-data" method="post">
+        <form asp-controller="Photo" asp-action="Update" asp-route-id="@Model.Photo.Id" enctype="multipart/form-data" method="post">
             @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Photo.Id" />
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo *</label>
                 <input type="text" class="form-control" id="title" asp-for="Photo.Title">
@@ -28,12 +29,15 @@
             </div>
             <div class="mb-3">
                 <label asp-for="ImageFormFile">File immagine</label>
-                <input type="file" asp-for="ImageFormFile" />
-                <span asp-validation-for="ImageFormFile" class="text-error"></span>
+                <img src="@(Model.Photo.ImageSrc != "" ? Model.Photo.ImageSrc : "/img/placeholder.png")" class="ms-table-preview">
+                <div>
+                    <input type="file" asp-for="ImageFormFile" />
+                    <span asp-validation-for="ImageFormFile" class="text-error"></span>
+                </div>
             </div>
             <div class="mb-3">
                 <label asp-for="Photo.Visibility" class="form-label">Visibilità</label>
-                <input type="checkbox" id="visibility" value="true" asp-for="Photo.Visibility"/>
+                <input type="checkbox" id="visibility" value="true" asp-for="Photo.Visibility" />
                 <span class="text-danger" asp-validation-for="Photo.Visibility"></span>
             </div>
             <div class="mb-3">
@@ -45,7 +49,7 @@
                         asp-items="@Model.AvailableCategories">
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Crea</button>
+            <button type="submit" class="btn btn-success">Salva</button>
         </form>
     </div>
 </div>

@@ -32,7 +32,7 @@
                     {
                         <tr>
                             <td>
-                                <img class="ms-table-preview" src="@photo.ImageSrc" alt="@photo.Title">
+                                <img class="ms-table-preview" src="@(photo.ImageSrc != "" ? photo.ImageSrc : "/img/placeholder.png")" alt="@photo.Title">
                             </td>
                             <td class="text-truncate">@photo.Title</td>
                             <td class="text-truncate">@photo.Description</td>

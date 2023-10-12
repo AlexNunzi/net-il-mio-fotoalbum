@@ -20,3 +20,8 @@ footere {
     table-layout: fixed;
     width: 100%;
 }
+
+.ms-detail-image {
+    height: 20rem;
+    object-fit: cover;
+}
