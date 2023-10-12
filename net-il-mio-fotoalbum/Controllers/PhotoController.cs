@@ -217,6 +217,22 @@ namespace net_il_mio_fotoalbum.Controllers
             return RedirectToAction("Details", "Photo", new { id });
         }
 
+        [HttpPost]
+        public IActionResult Delete(long id)
+        {
+            Photo? deletingPhoto = _photoDatabase.Photos.Where(p => p.Id == id).FirstOrDefault();
+
+            if(deletingPhoto != null)
+            {
+                _photoDatabase.Remove(deletingPhoto);
+                _photoDatabase.SaveChanges();
+                return RedirectToAction("Index", "Photo");
+            } else
+            {
+                return NotFound($"Non è stato possibile trovare una foto da eliminare con id={id}");
+            }
+        }
+
         private void SetImageFileFromFormFile(PhotoFormModel formData)
         {
             if (formData.ImageFormFile == null)

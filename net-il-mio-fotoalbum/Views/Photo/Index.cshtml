@@ -66,7 +66,7 @@
                                     </a>
                                     <form class="d-inline-block" id="ms-delete-@photo.Id" asp-controller="Photo" asp-action="Delete" asp-route-id="@photo.Id" method="post">
                                         @Html.AntiForgeryToken()
-                                        <button data-bs-toggle="modal" data-bs-target="#ms-modal-delete" data-form-id="@photo.Id" data-form-name="@photo.Title" type="submit" class="btn btn-sm btn-danger ms-btn-delete">
+                                        <button data-bs-toggle="modal" data-bs-target="#ms-modal-delete" data-form-img="@photo.ImageSrc" data-form-id="@photo.Id" data-form-name="@photo.Title" type="submit" class="btn btn-sm btn-danger ms-btn-delete">
                                             @* Elimina *@
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
@@ -86,3 +86,56 @@
         </table>
     </div>
 </div>
+
+<div id="ms-modal-delete" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div id="ms-modal-content" class="modal-content">
+            <div class="modal - header">
+                <h5 class="modal-title text-danger">Attenzione!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="ms-modal-photo-img"/>
+                <h2 class="p-5 text-center">Vuoi davvero eliminare la foto <span id="ms-deleting-name"></span>?</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"> No </button>
+                <button id="ms-modal-delete-btn" type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"> Elimina </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        const btnDelete = document.getElementsByClassName("ms-btn-delete");
+        const myModal = document.getElementById("ms-modal-delete");
+        const photoModalName = document.getElementById("ms-deleting-name");
+        const photoModalImg = document.getElementById("ms-modal-photo-img");
+        const modalDeleteBtn = document.getElementById("ms-modal-delete-btn");
+        let photoId = null;
+
+        modalDeleteBtn.addEventListener("click", function (event) {
+            if (photoId != null) {
+                const deletingForm = document.getElementById("ms-delete-" + photoId);
+                deletingForm.submit();
+                photoId = null
+            }
+        });
+
+        for (let i = 0; i < btnDelete.length; i++) {
+            btnDelete[i].addEventListener("click", function (event) {
+                event.preventDefault();
+                photoModalName.innerHTML = "";
+                photoId = btnDelete[i].getAttribute("data-form-id");
+                const photoName = btnDelete[i].getAttribute("data-form-name");
+                const photoImg = btnDelete[i].getAttribute("data-form-img");
+                console.log(photoModalImg);
+                photoModalImg.setAttribute("src", (photoImg != "" ? photoImg : "/img/placeholder.png"));
+                photoModalImg.setAttribute("alt", photoName);
+                photoModalName.innerHTML = photoName;
+            });
+        }
+
+    </script>
+}

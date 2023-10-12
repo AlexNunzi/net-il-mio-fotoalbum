@@ -25,3 +25,9 @@ footere {
     height: 20rem;
     object-fit: cover;
 }
+
+#ms-modal-photo-img{
+    width: 100%;
+    max-height: 30rem;
+    object-fit: cover;
+}
