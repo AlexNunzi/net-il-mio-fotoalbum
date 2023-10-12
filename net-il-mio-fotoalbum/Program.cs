@@ -1,6 +1,7 @@
 using net_il_mio_fotoalbum.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace net_il_mio_fotoalbum
 {
@@ -18,6 +19,11 @@ namespace net_il_mio_fotoalbum
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Codice di cofigurazione per il serializzatore JSON, in modo che ignori completamente le dipendenze cicliche di
+            // eventuali relazione N:N o 1:N presenti nel JSON risultante.
+            builder.Services.AddControllers().AddJsonOptions(x =>
+                            x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             builder.Services.AddScoped<PhotoContext, PhotoContext>();
 

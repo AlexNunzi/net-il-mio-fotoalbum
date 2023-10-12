@@ -40,6 +40,11 @@ footere {
     height: 5rem;
 }
 
+.ms-card-img {
+    height: 15rem;
+    object-fit: cover;
+}
+
 /* Landing page */
 
 #ms-jumbo {

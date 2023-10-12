@@ -15,6 +15,7 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             _photoDatabase = photoDatabase;
         }
+
         [Authorize(Roles = "ADMIN, USER")]
         [HttpGet]
         public IActionResult Index(string? filteringString)
