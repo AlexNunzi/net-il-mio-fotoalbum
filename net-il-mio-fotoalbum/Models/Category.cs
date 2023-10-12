@@ -11,7 +11,7 @@ namespace net_il_mio_fotoalbum.Models
         public string? Description { get; set; }
 
         // Relazione con Photo
-        public List<Photo> Photos { get; set; }
+        public List<Photo>? Photos { get; set; }
 
         public Category() { }
 

@@ -1,13 +1,13 @@
 ﻿@{
     Layout = "_Layout";
-    ViewData["Title"] = "Create new photo";
+    ViewData["Title"] = "Modifica una foto";
 }
 
 @model PhotoFormModel
 
 <div class="p-5">
     <div class="container bg-light p-3 rounded-3">
-        <h1 class="ms-text-orange text-center">Crea la tua nuova foto!</h1>
+        <h1 class="ms-text-orange text-center">Modifica la tua foto!</h1>
         <p class="fs-6 text-center">I campi contrassegnati da * sono obbligatori.</p>
         <form asp-controller="Photo" asp-action="Update" asp-route-id="@Model.Photo.Id" enctype="multipart/form-data" method="post">
             @Html.AntiForgeryToken()

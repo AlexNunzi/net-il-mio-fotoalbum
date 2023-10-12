@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Dettaglio categoria";
+}
+
+@model Category
+
+<div class="p-5">
+    <div class="bg-light p-3 rounded-3">
+        <ul class="list-unstyled">
+            <li>
+                <h1 class="text-center mb-3">@Model.Name</h1>
+            </li>
+            <li>
+                <p>
+                    <strong>Descrizione: </strong>@Model.Description
+                </p>
+            </li>
+        </ul>
+        <div class="text-center">
+            <a class="btn btn-warning" href="@Url.Action("Index", "Category")">Lista categorie</a>
+        </div>
+    </div>
+</div>

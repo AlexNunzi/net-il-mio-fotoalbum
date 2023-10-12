@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Crea una nuova categoria";
+}
+
+@model Category
+
+<div class="p-5">
+    <div class="container bg-light p-3 rounded-3">
+        <h1 class="ms-text-orange text-center">Crea la tua nuova categoria!</h1>
+        <p class="fs-6 text-center">I campi contrassegnati da * sono obbligatori.</p>
+        <form asp-controller="Category" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome *</label>
+                <input type="text" class="form-control" id="name" asp-for="Name">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Descrizione</label>
+                <input type="text" class="form-control" id="description" asp-for="Description">
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Crea</button>
+        </form>
+    </div>
+</div>
