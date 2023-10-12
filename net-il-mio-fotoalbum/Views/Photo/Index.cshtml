@@ -3,7 +3,7 @@
     ViewData["Title"] = "Lista delle foto";
 }
 
-@model List<Photo>
+@model PhotoIndexFiltered
 
 <div class="p-5">
     <div class="bg-light p-3 rounded-3">
@@ -14,6 +14,17 @@
                 <a class="btn btn-success my-3" href="@Url.Action("Create", "Photo")">Aggiungi foto</a>
             </div>
         @* } *@
+        <form id="ms-filter-photo-name-form" asp-controller="Photo" asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="filteringString" class="form-label">Filtra per nome</label>
+                <span class="d-flex align-items-center">
+                    <input id="ms-filter-photo-name" type="text" class="form-control flex-grow-1" id="filteringString" asp-for="FilteringString">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -26,9 +37,9 @@
                 </tr>
             </thead>
             <tbody>
-                @if (Model.Count > 0)
+                @if (Model.Photos.Count > 0)
                 {
-                    @foreach (Photo photo in Model)
+                    @foreach (Photo photo in Model.Photos)
                     {
                         <tr>
                             <td>
@@ -79,7 +90,7 @@
                 else
                 {
                     <tr>
-                        <td class="text-center text-danger" colspan="6">L'elenco delle foto è ancora vuoto.</td>
+                        <td class="text-center text-danger" colspan="6">Nessuna foto da mostrare.</td>
                     </tr>
                 }
             </tbody>
@@ -137,5 +148,15 @@
             });
         }
 
+        const filteringStringInput = document.getElementById("ms-filter-photo-name");
+        const filteringStringForm = document.getElementById("ms-filter-photo-name-form");
+
+        filteringStringInput.addEventListener("keyup", () => {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                filteringStringForm.submit();
+            }
+            
+        });
+        
     </script>
 }

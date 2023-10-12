@@ -15,10 +15,20 @@ namespace net_il_mio_fotoalbum.Controllers
             _photoDatabase = photoDatabase;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? filteringString)
         {
-            List<Photo> photos = _photoDatabase.Photos.Include(p => p.Categories).ToList();
-            return View("Index", photos);
+            PhotoIndexFiltered filteredPhotos = new PhotoIndexFiltered();
+            if(filteringString == null || filteringString == "")
+            {
+                List<Photo> photos = _photoDatabase.Photos.Include(p => p.Categories).ToList();
+                filteredPhotos.Photos = photos;
+                filteredPhotos.FilteringString = filteringString;
+            } else
+            {
+                List<Photo> photos = _photoDatabase.Photos.Where(p => p.Title.ToLower().Contains(filteringString.ToLower())).Include(p => p.Categories).ToList();
+                filteredPhotos.Photos = photos;
+            }
+            return View("Index", filteredPhotos);
         }
 
         [HttpGet]
