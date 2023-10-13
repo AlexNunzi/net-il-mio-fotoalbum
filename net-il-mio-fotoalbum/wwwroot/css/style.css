@@ -1,9 +1,9 @@
 ﻿header {
-    height: 6.5rem;
+    height: 4rem;
 }
 
 main {
-    min-height: Calc(100vh - 14rem);
+    min-height: Calc(100vh - 12.5rem);
 }
 
 footere {
@@ -37,7 +37,7 @@ footere {
 }
 
 #ms-logo {
-    height: 5rem;
+    height: 2.5rem;
 }
 
 .ms-card-img {

@@ -23,6 +23,11 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("PhotoAlbum", "Home");
         }
 
+        public IActionResult ContactUs()
+        {
+            return View("ContactUs", "Home");
+        }
+
         public IActionResult Privacy()
         {
             return View();

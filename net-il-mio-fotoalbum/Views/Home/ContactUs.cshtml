@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Contattaci";
+}
+
+<div class="p-5">
+    <div class="container my-3">
+        <div class="row align-content-stretch bg-black bg-opacity-50 rounded-3">
+
+            <h1 class="col-12 text-white text-center bg-black bg-opacity-75 rounded-top py-2">Contattaci</h1>
+
+            <p class="fs-6 text-center text-white">I campi contrassegnati da * sono obbligatori.</p>
+            <div class="p-3 text-center">
+                <strong id="ms-msg-generic-error" class="text-danger text-center d-none bg-light rounded-3 p-3">Errore durante l'invio del messaggio.</strong>
+                <strong id="ms-msg-generic-success" class="text-success text-center d-none bg-light rounded-3 p-3">Messaggio inviato con successo, ci impegneremo a rispondere entro 48h, grazie del supporto!</strong>
+            </div>
+            <form method="post" action="#" class="p-3">
+                <div class="mb-3">
+                    <label for="email" class="form-label text-white">E-mail *</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <span id="ms-error-email" class="text-danger d-none"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label text-white">Messaggio *</label>
+                    <textarea id="content" class="form-control" name="content" rows="4" cols="50" required></textarea>
+                    <span id="ms-error-content" class="text-danger d-none"></span>
+                </div>
+                <button id="ms-msg-send-btn" type="submit" class="btn btn-primary">Invia</button>
+            </form>
+                                
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        const sendButton = document.getElementById("ms-msg-send-btn");
+        const genericError = document.getElementById("ms-msg-generic-error");
+        const genericSuccess = document.getElementById("ms-msg-generic-success");
+        const contentDomError = document.getElementById("ms-error-content");
+        const emailDomError = document.getElementById("ms-error-email");
+
+        // Invio del form al click sul button
+        sendButton.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            // Display-none sui messaggi di errore
+            genericError.classList.add("d-none");
+            genericSuccess.classList.add("d-none");
+            contentDomError.classList.add("d-none");
+            emailDomError.classList.add("d-none");
+
+            // Salvo i campi del form
+            let formEmail = document.getElementById("email");
+            const formContent = document.getElementById("content");
+
+            // Se il campo E-mail e/o il campo Messaggio sono vuoti o la mail non è in un formato valido
+            // mostro i relativi messaggi di errore
+            if (formEmail.value == "" || !formEmail.value.match(/^(([^<>()[\]\\.,;:\s@@"]+(\.[^<>()[\]\\.,;:\s@@"]+)*)|.(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                emailDomError.innerHTML = "Questo campo è obbligatorio e deve essere una mail valida.";
+                genericError.classList.remove("d-none");
+                emailDomError.classList.remove("d-none");
+            } else if (formContent.value == "") {
+                contentDomError.innerHTML = "Questo campo è obbligatorio.";
+                genericError.classList.remove("d-none");
+                contentDomError.classList.remove("d-none");
+            } else {
+                // Altrimenti effettuo chiamata all'endpoint per la creazione di un nuovo messaggio da salvare nel database
+                axios.post("/api/Messageapi/CreateMessage", {
+                    "Email": formEmail.value,
+                    "Content": formContent.value,
+                }).then(function (response) {
+                    // In caso di successo mostro messaggio di successo all'utente e pulisco i campi i input
+                    genericSuccess.classList.remove("d-none");
+                    formEmail.value = "";
+                    formContent.value = "";
+                }).catch(function (error) {
+                    // In caso di errore mostro messaggio di erroregenerico
+                    genericError.classList.remove("d-none");
+                    // Se tra i messaggi i errore sono presenti le voci Email e/o Content salvo il loro array altrimenti 
+                    // salvo un array vuoto
+                    const errorEmail = (error.response.data.errors.hasOwnProperty('Email') ? error.response.data.errors.Email : []);
+                    const errorContent = (error.response.data.errors.hasOwnProperty('Content') ? error.response.data.errors.Content : []);
+                    // Se sono presenti errori per Content li aggiungo all'elemento HTML adibito e li mostro all'utente
+                    if (errorContent.length > 0) {
+                        contentDomError.innerHTML = "";
+                        errorContent.forEach(error => { 
+                            contentDomError.innerHTML += error + "<br />";
+                        });
+                        contentDomError.classList.remove("d-none");
+                    }
+                    // Se sono presenti errori per E-mail li aggiungo all'elemento HTML adibito e li mostro all'utente
+                    if (errorEmail.length > 0) {
+                        emailDomError.innerHTML = "";
+                        errorEmail.forEach(error => {
+                            emailDomError.innerHTML += error + "<br />";
+                        });
+                        emailDomError.classList.remove("d-none");
+                    }
+                });
+            }
+
+        });
+
+    </script>
+}
