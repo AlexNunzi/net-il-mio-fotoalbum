@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Lista dei messaggi";
+}
+
+@model List<Message>
+
+<div class="p-5">
+    <div class="bg-light p-3 rounded-3">
+        <h1 class="text-center mb-3">Feedback dall'utente</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Messaggio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    @foreach (Message message in Model)
+                    {
+                        <tr>
+                            <td>@message.Email</td>
+                            <td>@message.Content</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="text-center text-danger" colspan="2">Nessun messaggio da mostrare.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
